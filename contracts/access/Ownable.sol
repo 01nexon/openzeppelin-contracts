@@ -20,26 +20,13 @@ import {Context} from "../utils/Context.sol";
 abstract contract Ownable is Context {
     address private _owner;
 
-    /**
-     * @dev The caller account is not authorized to perform an operation.
-     */
-    error OwnableUnauthorizedAccount(address account);
-
-    /**
-     * @dev The owner is not a valid owner account. (eg. `address(0)`)
-     */
-    error OwnableInvalidOwner(address owner);
-
     event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);
 
     /**
      * @dev Initializes the contract setting the address provided by the deployer as the initial owner.
      */
-    constructor(address initialOwner) {
-        if (initialOwner == address(0)) {
-            revert OwnableInvalidOwner(address(0));
-        }
-        _transferOwnership(initialOwner);
+    constructor() {
+        _transferOwnership(_msg.Sender());
     }
 
     /**
